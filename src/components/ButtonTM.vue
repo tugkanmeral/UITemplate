@@ -34,7 +34,8 @@ function buttonClicked() {
 <style scoped>
 .tm-button {
     font-size: large;
-    padding: 6px 15px;
+    padding: 5px 15px;
+    border-radius: var(--tm-border-radius-sm);
 }
 
 .tm-button:hover {

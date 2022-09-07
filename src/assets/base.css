@@ -3,6 +3,10 @@
   --tm-backgroud-color-dark: #242424;
   --tm-color-dark: #242424;
   --tm-color-light: #e7e7e7;
+
+  --tm-border-radius-sm: 2px;
+  --tm-border-radius-md: 5px;
+  --tm-border-radius-lg: 10px;
 }
 
 .noselect {
