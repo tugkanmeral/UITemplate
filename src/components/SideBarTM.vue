@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 import ButtonTM from './ButtonTM.vue';
 const props = defineProps({
@@ -8,15 +9,15 @@ const props = defineProps({
 
 <template>
     <div id="side-bar" :class="props.collapsed ? 'collapsed' : null">
-
         <RouterLink to="/" class="route-link-button noselect">Home</RouterLink>
         <RouterLink to="/about" class="route-link-button noselect">About</RouterLink>
+        <RouterLink to="/login" class="route-link-button noselect">Login</RouterLink>
         <!-- <RouterLink to="/about">About</RouterLink> -->
         <div style="flex-grow: 1;">
 
         </div>
         <ButtonTM class="route-link-button noselect" :icon="'fa-solid fa-arrow-right-from-bracket'"
-            :background-color="'darkred'">
+            :background-color="'darkred'" :width="'auto'">
             Logout
         </ButtonTM>
     </div>
