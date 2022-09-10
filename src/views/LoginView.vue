@@ -2,9 +2,13 @@
 import { ref } from 'vue';
 import FreeTextTm from '../components/input/FreeTextTm.vue';
 import ButtonTM from '../components/ButtonTM.vue';
+import { useUserStore } from '../stores/user'
+import CartTM from '../components/container/CartTM.vue'
 
 const username = ref('')
 const password = ref('')
+
+const userStore = useUserStore();
 
 function usernameChanged(_val) {
     username.value = _val;
@@ -14,13 +18,30 @@ function passwordChanged(_val) {
 }
 
 function login() {
-    console.log(username.value)
-    console.log(password.value)
+    fetch("http://localhost:5001/api/auth/getToken", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Username: username.value,
+            Password: password.value
+        })
+
+    }).then(async (response) => {
+        const data = await response.text();
+        userStore.setToken(data)
+    }).catch((err) => {
+        console.error(err);
+    })
 }
 </script>
 
 <template>
-    <FreeTextTm placeholder="username" @value-changed="(val) => usernameChanged(val)" />
-    <FreeTextTm placeholder="password" @value-changed="(val) => passwordChanged(val)" type="password" />
-    <ButtonTM text="Login" v-on:clicked-event="login" />
+    <CartTM>
+        <FreeTextTm placeholder="username" @value-changed="(val) => usernameChanged(val)" class="mb-5" />
+        <FreeTextTm placeholder="password" @value-changed="(val) => passwordChanged(val)" type="password"
+            class="mb-5" />
+        <ButtonTM text="Login" v-on:clicked-event="login" />
+    </CartTM>
 </template>

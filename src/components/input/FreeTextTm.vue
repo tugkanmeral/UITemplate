@@ -1,5 +1,4 @@
 <script setup>
-import { computed } from '@vue/reactivity';
 import { ref, watch } from 'vue';
 
 const props = defineProps({

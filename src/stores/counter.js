@@ -14,18 +14,3 @@ export const useCounterStore = defineStore({
     },
   },
 });
-
-export const user = defineStore({
-  id: "user",
-  state: () => ({
-    token: null,
-  }),
-  getters: {
-    token: (state) => state.token,
-  },
-  actions: {
-    setToken(_token) {
-      this.$state.token = _token;
-    },
-  },
-});
