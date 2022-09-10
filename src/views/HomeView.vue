@@ -1,14 +1,11 @@
 <script setup>
-import { ref } from 'vue';
 import ButtonTM from '../components/ButtonTM.vue';
-function test() {
-  console.log('test')
-}
 
-const textColor = ref('#e7e7e7')
-const buttonWidth = ref('fit-content')
+function test() {
+  console.log('Hi there!')
+}
 </script>
 
 <template>
-  <ButtonTM @clickedEvent="() => test()" :textColor="textColor" :width="buttonWidth">Test</ButtonTM>
+  <ButtonTM @clickedEvent="() => test()" :textColor="'#e7e7e7'" :width="'fit-content'">Test</ButtonTM>
 </template>

@@ -4,6 +4,7 @@ import FreeTextTm from '../components/input/FreeTextTm.vue';
 import ButtonTM from '../components/ButtonTM.vue';
 import { useUserStore } from '../stores/user'
 import CartTM from '../components/container/CartTM.vue'
+import router from '../router';
 
 const username = ref('')
 const password = ref('')
@@ -27,10 +28,10 @@ function login() {
             Username: username.value,
             Password: password.value
         })
-
     }).then(async (response) => {
         const data = await response.text();
         userStore.setToken(data)
+        router.replace({ path: '/' })
     }).catch((err) => {
         console.error(err);
     })

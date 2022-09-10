@@ -1,23 +1,33 @@
 <script setup>
-import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 import ButtonTM from './ButtonTM.vue';
+import { useUserStore } from '../stores/user';
+import router from '../router';
+
 const props = defineProps({
     collapsed: Boolean
 })
+const userStore = useUserStore();
+
+function logout() {
+    userStore.removeToken();
+    router.replace({ path: '/login' })
+}
 </script>
 
 <template>
     <div id="side-bar" :class="props.collapsed ? 'collapsed' : null">
-        <RouterLink to="/" class="route-link-button noselect">Home</RouterLink>
-        <RouterLink to="/about" class="route-link-button noselect">About</RouterLink>
-        <RouterLink to="/login" class="route-link-button noselect">Login</RouterLink>
+        <div v-if="userStore.isLoggedIn">
+            <RouterLink to="/" class="route-link-button noselect">Home</RouterLink>
+            <RouterLink to="/about" class="route-link-button noselect">About</RouterLink>
+        </div>
+        <RouterLink to="/login" class="route-link-button noselect" v-if="!userStore.isLoggedIn">Login</RouterLink>
         <!-- <RouterLink to="/about">About</RouterLink> -->
         <div style="flex-grow: 1;">
 
         </div>
         <ButtonTM class="route-link-button noselect" :icon="'fa-solid fa-arrow-right-from-bracket'"
-            :background-color="'darkred'" :width="'auto'">
+            :background-color="'darkred'" :width="'auto'" @clicked-event="logout" v-if="userStore.isLoggedIn">
             Logout
         </ButtonTM>
     </div>
