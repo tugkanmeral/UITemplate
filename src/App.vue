@@ -4,21 +4,23 @@ import { RouterView } from 'vue-router'
 
 import router from './router';
 import { useUserStore } from './stores/user';
+import { useSideBarStore } from './stores/sideBar';
 
 import NavTM from './components/NavTM.vue';
 import SideBarTM from './components/SideBarTM.vue';
 
 const sideBarCollapsed = ref(true);
 
-const userState = useUserStore();
+const userStore = useUserStore();
+const sideBarStore = useSideBarStore();
 
 function changeCollapseState() {
-  sideBarCollapsed.value = !(sideBarCollapsed.value);
+  sideBarStore.switch();
 }
 
 watch(router.currentRoute, (val) => {
-  if (!userState.isLoggedIn) {
-    userState.removeToken();
+  if (!userStore.isLoggedIn) {
+    userStore.removeToken();
     router.replace({ path: '/login' })
   }
 })
@@ -28,7 +30,7 @@ watch(router.currentRoute, (val) => {
   <title>{{router.currentRoute.value.name}}</title>
   <NavTM @sideBarButtonClicked="() => changeCollapseState()" />
   <div id="mid-body">
-    <SideBarTM :collapsed=sideBarCollapsed />
+    <SideBarTM :collapsed=sideBarStore.isCollapsed />
     <main>
       <RouterView />
     </main>

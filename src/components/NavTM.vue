@@ -1,7 +1,10 @@
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ButtonTM from './ButtonTM.vue';
+import { useSideBarStore } from '../stores/sideBar';
+
 const emit = defineEmits(['sideBarButtonClicked'])
+const sideBarStore = useSideBarStore();
 
 function sideBarButtonClicked() {
     emit('sideBarButtonClicked')
@@ -11,7 +14,8 @@ function sideBarButtonClicked() {
 <template>
     <nav>
         <ButtonTM @clicked-event="sideBarButtonClicked">
-            <font-awesome-icon icon="fa-solid fa-bars" size="2x" />
+            <font-awesome-icon icon="fa-solid fa-bars" size="2x" v-if="sideBarStore.isCollapsed" />
+            <font-awesome-icon icon="fa-solid fa-arrow-left" size="2x" v-else />
         </ButtonTM>
     </nav>
 </template>
