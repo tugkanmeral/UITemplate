@@ -9,6 +9,7 @@ import NavTM from './components/NavTM.vue';
 import SideBarTM from './components/SideBarTM.vue';
 
 const sideBarCollapsed = ref(true);
+
 const userState = useUserStore();
 
 function changeCollapseState() {
@@ -24,8 +25,8 @@ watch(router.currentRoute, (val) => {
 </script>
 
 <template>
+  <title>{{router.currentRoute.value.name}}</title>
   <NavTM @sideBarButtonClicked="() => changeCollapseState()" />
-
   <div id="mid-body">
     <SideBarTM :collapsed=sideBarCollapsed />
     <main>
