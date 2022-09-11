@@ -11,6 +11,10 @@ const password = ref('')
 
 const userStore = useUserStore();
 
+if (userStore.isLoggedIn) {
+    router.replace({ path: '/' })
+}
+
 function usernameChanged(_val) {
     username.value = _val;
 }
